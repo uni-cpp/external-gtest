@@ -16,7 +16,6 @@ set( HEADERS
     "include/gmock/internal/custom/gmock-generated-actions.h"
     "include/gmock/internal/custom/gmock-matchers.h"
     "include/gmock/internal/custom/gmock-port.h"
-
 )
 
 set( SOURCES
