@@ -1,4 +1,4 @@
-project( googletest )
+project( gtest )
 
 set( HEADERS
     "include/gtest/gtest-death-test.h"
@@ -53,6 +53,45 @@ install( TARGETS ${PROJECT_NAME}
 )
 
 # The trailing slash is important
-install( DIRECTORY ${CMAKE_INSTALL_INCLUDEDIR}/
-         DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+install( DIRECTORY ${CMAKE_INSTALL_INCLUDEDIR}/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
 )
+
+######################################################################################
+
+project ( gtest-main )
+
+set( HEADERS
+    ""
+)
+
+set( SOURCES
+    "src/gtest_main.cc"
+)
+
+add_library( ${PROJECT_NAME} STATIC
+    ${HEADERS}
+    ${SOURCES}
+)
+
+target_include_directories( ${PROJECT_NAME}
+    PUBLIC
+        ${SOURCE_DIR}/external/gtest/googletest/include
+    PRIVATE
+        ${SOURCE_DIR}/external/gtest/googletest/
+)
+
+target_link_libraries( ${PROJECT_NAME}
+    PUBLIC
+        ${CMAKE_THREAD_LIBS_INIT}
+)
+
+install( TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+# The trailing slash is important
+install( DIRECTORY ${CMAKE_INSTALL_INCLUDEDIR}/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+

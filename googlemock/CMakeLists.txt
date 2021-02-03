@@ -1,4 +1,4 @@
-project( googlemock )
+project( gmock )
 
 set( HEADERS
     "include/gmock/gmock-actions.h"
@@ -20,6 +20,46 @@ set( HEADERS
 
 set( SOURCES
     "src/gmock-all.cc"
+)
+
+add_library( ${PROJECT_NAME} STATIC
+    ${HEADERS}
+    ${SOURCES}
+)
+
+target_include_directories( ${PROJECT_NAME}
+    PUBLIC
+        ${SOURCE_DIR}/external/gtest/googlemock/include
+        ${SOURCE_DIR}/external/gtest/googletest/include
+    PRIVATE
+        ${SOURCE_DIR}/external/gtest/googlemock/
+)
+
+target_link_libraries( ${PROJECT_NAME}
+    PUBLIC
+        ${CMAKE_THREAD_LIBS_INIT}
+)
+
+install( TARGETS ${PROJECT_NAME}
+    ARCHIVE DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+# The trailing slash is important
+install( DIRECTORY ${CMAKE_INSTALL_INCLUDEDIR}/ DESTINATION ${CMAKE_INSTALL_INCLUDEDIR}
+)
+
+######################################################################################
+
+project ( gmock-main )
+
+set( HEADERS
+    ""
+)
+
+set( SOURCES
+    "src/gmock_main.cc"
 )
 
 add_library( ${PROJECT_NAME} STATIC
